@@ -17,8 +17,8 @@
     <header >
          <!-- nav bar -->
          <div class="">
-            <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom py-0 px-5">
-                <div class="container-fluid mx-4">
+            <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom py-0 px-xl-5">
+                <div class="container-fluid mx-xl-4">
                   <a class="navbar-brand" href="#">
                     <img class="h-25 w-25"rounded-circle src="images/bidding.png" alt="">
                   </a>
@@ -29,10 +29,26 @@
                   </button>
                   <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <form class="d-flex mx-auto " role="search">
-                        <input class="form-control me-2 text-center " type="search" placeholder="Search Items" aria-label="Search">
-                        <button class="btn btn-outline-success " type="submit">Search</button>
+                        <input class="form-control text-center " type="search" placeholder="Search Items" aria-label="Search">
+                        <button class="btn btn-outline-success text-center rounded-start" type="submit"><span class="material-symbols-outlined ">
+                          search
+                          </span></button>
                       </form>
-                    <ul class="navbar-nav  mb-2 mb-lg-0">
+                    <ul class="navbar-nav  mb-2 mb-lg-0 ">
+                      
+                      
+                      <li class="nav-item">
+                        <a class="nav-link text-dark fw-bold" aria-current="page" href="#">Home</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link text-dark fw-bold" href="#about">About</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link text-dark fw-bold" href="#contact">Contact</a>
+                      </li>
+                      <li class="nav-item">
+                        <button type="button" class="btn nav-link text-dark">admin Login</button>
+                      </li>
                       
                       <li class="nav-item dropdown">
                         <button class="btn  dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -40,22 +56,12 @@
                                 person_add
                                 </span>
                           </button>
-                        <ul class="dropdown-menu mt-2 shadow">
+                        <ul class="dropdown-menu mt-2 shadow dropdown-menu-end">
                           <li><a class="dropdown-item" href="#">Log In </a></li>
                           <li><a class="dropdown-item" href="#">Sign Up</a></li>
                           <li><hr class="dropdown-divider"></li>
                           <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
-                      </li>
-                      
-                      <li class="nav-item">
-                        <a class="nav-link text-dark fw-bold" aria-current="page" href="#">Home</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link text-dark fw-bold" href="#">About</a>
-                      </li>
-                      <li class="nav-item">
-                        <button type="button" class="btn nav-link text-dark">admin Login</button>
                       </li>
                     </ul>
                     
@@ -66,7 +72,7 @@
          </div>
          <!-------------- slider ----- -->
 
-         <div class="px-5 ">
+         <div class="px-md-5 ">
           <div id="carouselExampleDark" class="carousel carousel-dark slide p-4" data-bs-ride="carousel">
             <div class="carousel-indicators">
               <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -118,7 +124,29 @@
          
     </header>
     <main class="">
-         
+          <!-- about us section -->
+    <section id ="about">
+      <div class=" my-5 mx-5" >
+        <h2 class="fw-bold text-center">About Us </h2>
+        <hr class="w-25 mx-auto">
+        <div class="d-flex flex-column-reverse flex-md-row justify-content-center align-items-center">
+          <div class="col-md-6 d-flex justify-content-center mt-5">
+            <img src="images/Asset .jpeg" class="img-fluid rounded-start h-75 w-75" alt="...">
+          </div>
+          <div class="col-md-6 ">
+            <div >
+              
+              <p>
+                Welcome to our Online Bidding System, where buyers and sellers connect in a dynamic and secure marketplace. Our platform was established with the mission to provide an easy, efficient, and reliable way for users to engage in auctions from the comfort of their homes. Our advanced features include real-time bidding, secure payment processing, and a comprehensive rating and review system to help you make informed decisions. Our dedicated team continuously works to improve the platform, bringing you the latest technology and best practices in online auctions.
+            </p>
+            <p>
+                Join our growing community of buyers and sellers today and experience the excitement of bidding on a wide array of items. Thank you for choosing our platform, and we look forward to helping you discover and win amazing deals.
+            </p><a class=" text-decoration-none" href="">Explore More</a></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
        <!-- happy clients -->
        <section class="section-fluid mx-5 p-4">
@@ -190,7 +218,7 @@
       <div class="me-5">
         <span>Get connected with us on social networks:</span>
       </div>
-      <div >
+      <div id="contact">
         <a href="" class="text-white me-4 text-decoration-none">
           <i class="fa-brands fa-facebook"></i>
         </a>
