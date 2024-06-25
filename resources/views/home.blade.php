@@ -131,7 +131,7 @@
         <hr class="w-25 mx-auto">
         <div class="d-flex flex-column-reverse flex-md-row justify-content-center align-items-center">
           <div class="col-md-6 d-flex justify-content-center mt-5">
-            <img src="images/Asset .jpeg" class="img-fluid rounded-start h-75 w-75" alt="...">
+            <img src="images/about.jpeg" class="img-fluid rounded-start h-75 w-75" alt="...">
           </div>
           <div class="col-md-6 ">
             <div >
@@ -147,6 +147,56 @@
         </div>
       </div>
     </section>
+
+       <!-- frequently ask quention section -->
+       <div class="section mx-5">
+      <h1 class="text-center my-4">frequently Ask <span class="text-success">Quentions</span></h1>
+      <div class="row ">
+        <div class="col-md-6 ">
+          <img class="img-fluid w-75 h-100 " src="images/d2c7754c-071b-47b9-b255-476a23b7441a.jpg" alt="">
+        </div>
+        <div class="col-md-6 mt-5">
+          <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  How do I register and create an account?
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  To register and create an account, click on the "Register" button located at the top-right corner of the home page. Fill in the required information, including your name, email address, and password. You will receive a confirmation email to verify your account. Once verified, you can log in and start participating in auctions.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  How does the bidding process work?
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  To place a bid on an item, navigate to the auction listing and enter your bid amount in the provided field. Click the "Place Bid" button to submit your bid. If another user outbids you, you will receive a notification, and you can choose to place a higher bid. The auction will continue until the specified end time, and the highest bidder at that time will win the item
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  How do I create and manage my own auctions?
+                </button>
+              </h2>
+              <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  To create an auction, log in to your account and navigate to the "Create Auction" page. Fill in the required details, including the item title, description, category, starting bid, bid increment, and auction duration. You can also upload photos of your item to attract more bidders. Once your auction is live, you can manage it through your dashboard, where you can monitor bids, communicate with bidders, and update auction details if necessary.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     </div>
 
        <!-- happy clients -->
        <section class="section-fluid mx-5 p-4">
