@@ -24,7 +24,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        // return view('categories.create');
     }
 
     /**
@@ -63,7 +63,8 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $category = DB::table('categories')->find($id);
+        return view('categories.edit', ['category' => $category]);
     }
 
     /**
@@ -71,7 +72,23 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+    
+        $updated = DB::table('categories')
+                    ->where('id', $id)
+                    ->update([
+                        'name' => $request->name,
+                        'updated_at' => now(),
+                    ]);
+    
+        //if ($updated) {
+            //return redirect()->route('categories.index')->with('success', 'Category updated successfully!');
+        //} else {
+            //return redirect()->back()->with('error', 'Error updating category.');
+        //}
+    
     }
 
     /**
@@ -79,6 +96,13 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $deleted = DB::table('categories')->where('id', $id)->delete();
+
+    //if ($deleted) {
+        //return redirect()->route('categories.index')->with('success', 'Category deleted successfully!');
+    //} else {
+        //return redirect()->back()->with('error', 'Error deleting category.');
+   // }
     }
 }
+
