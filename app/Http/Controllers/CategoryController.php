@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -12,7 +13,7 @@ class CategoryController extends Controller
     public function indexforadmin()
     {
         $categories=DB::table('categories')->get();
-        //return view('categories.index_for_admins', ['categories' => $categories]);
+        return view('admin\categories', ['categories' => $categories]);
     }
     public function indexforsusers()
     {

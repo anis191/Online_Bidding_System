@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -18,8 +19,11 @@ class ProductController extends Controller
     public function indexforadmin()
     {
         //
-        $products = DB::table('products')->get();
-        return view('products.index', ['products' => $products]);
+        $products = DB::table('products')
+    ->join('categories', 'products.category_id', '=', 'categories.id')
+    ->select('products.*', 'categories.name as category_name')
+    ->get();
+        return view('admin\products', ['products' => $products]);
     }
 
     /**
@@ -28,7 +32,7 @@ class ProductController extends Controller
     public function create()
     {
         $categories = DB::table('categories')->get();
-        //return view('products.create', ['categories' => $categories]);
+        return view('admin\addproduct', ['categories' => $categories]);
 
     }
 
@@ -64,11 +68,13 @@ class ProductController extends Controller
             'updated_at' => now(),
         ]);
         
-       // if ($product) {
-            //return redirect()->route('products.index')->with('success', 'Product added successfully!');
-       // } else {
-           // return redirect()->back()->with('error', 'Error adding product.');
-       // }
+        if ($product) {
+            
+           return redirect()->route('categories.index')->with('success', 'Product added successfully!');
+       } else {
+           return redirect()->back()->with('error', 'Error adding product.');
+          
+        }
     
     }
     
