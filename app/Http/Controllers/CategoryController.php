@@ -18,8 +18,9 @@ class CategoryController extends Controller
     public function indexforsusers()
     {
         $categories=DB::table('categories')->get();
+        return view('user\home', ['categories' => $categories]);
     }
-       //  return view('categories.index_for_users', ['categories' => $categories]);
+   
     /**
      * Show the form for creating a new resource.
      */
@@ -56,7 +57,12 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $category = DB::table('categories')->where('id', $id)->first();
+
+        // Fetch all products under the specified category
+        $products = DB::table('products')->where('category_id', $id)->get();
+    
+        return view('category.show', compact('category', 'products'));
     }
 
     /**
