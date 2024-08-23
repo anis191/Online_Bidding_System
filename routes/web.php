@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\BidController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,3 +33,7 @@ Route::get('/admin/products', [ProductController::class,'indexforadmin'])->name(
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [ProductController::class, 'indexforuser'])->name('products.indexforuser');
+Route::get('/products/search', [ProductController::class, 'search'])->name('products.search');
+Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
+Route::post('/bids', [BidController::class, 'store'])->name('bids.store');

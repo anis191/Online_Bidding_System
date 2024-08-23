@@ -10,11 +10,19 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function indexforuser()
+    public function indexforuser(Request $request)
     {
         //
-        $products = DB::table('products')->get();
-        return view('products.index', ['products' => $products]);
+        $query = DB::table('products');
+
+        if ($request->has('category_id')) {
+            $query->where('category_id', $request->input('category_id'));
+        }
+    
+        $products = $query->get();
+        $categories = DB::table('categories')->get();
+    
+        return view('user\index', ['products' => $products, 'categories' => $categories]);
     }
     public function indexforadmin()
     {
@@ -84,7 +92,14 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $product = DB::table('products')
+        ->leftJoin(DB::raw('(SELECT product_id, MAX(bid_amount) as highest_bid FROM biddings GROUP BY product_id) as max_bids'), 
+            'products.id', '=', 'max_bids.product_id')
+        ->select('products.*', 'max_bids.highest_bid')
+        ->where('products.id', $id)
+        ->first();
+
+    return view('user\productdetails', ['product' => $product]);
     }
 
     /**
@@ -110,4 +125,20 @@ class ProductController extends Controller
     {
         //
     }
+    public function search(Request $request)
+{
+    // Validate the search query
+    $request->validate([
+        'name' => 'required|string|max:255',
+    ]);
+
+    $keyword = $request->input('name');
+    $products = DB::table('products')
+        ->where('name', 'like', '%' . $keyword . '%')
+        ->get();
+
+    $categories = DB::table('categories')->get();
+
+    return view('user\index', ['products' => $products, 'categories' => $categories]);
+}
 }
