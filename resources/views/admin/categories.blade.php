@@ -40,6 +40,7 @@
                             </tbody>
                         </table>
                     </div>
+                    <a href="{{ route('categories.create') }}" class="btn btn-danger btn-sm"> Click to Add a category</a>
                 </div>
             </div>
         </div>
