@@ -39,6 +39,7 @@ Route::get('/displayproducts', [ProductController::class, 'indexforuser'])->name
 Route::get('/products/search', [ProductController::class, 'search'])->name('products.search');
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
 Route::post('/bids', [BidController::class, 'store'])->name('bids.store');
+<<<<<<< HEAD
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -52,3 +53,7 @@ Route::post('admin-login',[AdminController::class,'adminLogin'])->name('admin.lo
 Route::group(['middleware'=>'admin'],function(){
     Route::get('admin/admin_dashboard',[AdminDashboardController::class,'admindDashboard'])->name('admin.admin_dashboard');
 });
+=======
+Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
+//Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+>>>>>>> 0094873a2dbb51f4f29c17e923078b0a683b9158
