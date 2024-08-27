@@ -37,3 +37,5 @@ Route::get('/', [ProductController::class, 'indexforuser'])->name('products.inde
 Route::get('/products/search', [ProductController::class, 'search'])->name('products.search');
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
 Route::post('/bids', [BidController::class, 'store'])->name('bids.store');
+Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
+//Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');

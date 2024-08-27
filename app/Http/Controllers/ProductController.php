@@ -95,7 +95,18 @@ class ProductController extends Controller
         $product = DB::table('products')
         ->leftJoin(DB::raw('(SELECT product_id, MAX(bid_amount) as highest_bid FROM biddings GROUP BY product_id) as max_bids'), 
             'products.id', '=', 'max_bids.product_id')
-        ->select('products.*', 'max_bids.highest_bid')
+        ->select(
+            'products.*', 
+            'max_bids.highest_bid',
+            DB::raw("
+                CASE 
+                    WHEN DATEDIFF(products.bid_expiry, CURDATE()) > 0 
+                        THEN CONCAT(DATEDIFF(products.bid_expiry, CURDATE()), ' days left')
+                    WHEN DATEDIFF(products.bid_expiry, CURDATE()) = 0 
+                        THEN CONCAT('Open until ', TIME_FORMAT(products.bid_expiry, '%H:%i'))
+                    ELSE 'Expired'
+                END as days_left")
+        )
         ->where('products.id', $id)
         ->first();
 

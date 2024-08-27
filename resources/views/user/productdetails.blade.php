@@ -14,6 +14,7 @@
         <p>Starting Bid: ${{ $product->starting_bid }}</p>
         <p>Start Price: ${{ $product->start_price }}</p>
         <p>Bid Expiry: {{ $product->bid_expiry }}</p>
+        <p>{{ $product->days_left }}</p>
         @if($product->highest_bid !== null)
             <p>Highest Bid: ${{ $product->highest_bid }}</p>
         @else
