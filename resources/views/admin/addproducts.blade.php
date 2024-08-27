@@ -1,11 +1,7 @@
 @extends('layouts.admin')
 @section('content')
 
-
-<!-- resources/views/products/create.blade.php -->
-
-<div class="container mt-5">
-<h1>Add Product</h1>
+<div class="container">
 
 <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
     @csrf
@@ -51,16 +47,7 @@
 
     <button type="submit" class="btn btn-primary">Add Product</button>
 </form>
-
 </div>
- 
-
-    
-  </main>
-<!-- footer section -->
-
+  
   @endsection
-
     
-
-

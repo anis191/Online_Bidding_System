@@ -81,57 +81,66 @@
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                              <form class="row g-3">
-                                <div class="col-md-6">
-                                  <label for="inputEmail4" class="form-label">Email</label>
-                                  <input type="email" placeholder="Enter your email" class="form-control" id="inputEmail4">
-                                </div>
-                                <div class="col-md-6">
-                                  <label for="inputUserId" class="form-label">User Id</label>
-                                  <input type="text" class="form-control" id="inputUserId" placeholder="Enter your Id">
-                                </div>
-                                <div class="col-12">
-                                  <label for="inputPassword4" class="form-label">Password</label>
-                                  <input type="password" class="form-control" id="inputPassword4"
-                                  placeholder="Enter your Password">
-                                   
-                                </div>
-                                <div class="col-12">
-                                  <label for="inputUserId2" class="form-label">Address 2</label>
-                                  <input type="text" class="form-control" id="inputUserId2" placeholder="Apartment, studio, or floor">
-                                </div>
-                                <div class="col-md-6">
-                                  <label for="inputCity" class="form-label">City</label>
-                                  <input type="text" class="form-control" id="inputCity">
-                                </div>
-                                <div class="col-md-4">
-                                  <label for="inputState" class="form-label">State</label>
-                                  <select id="inputState" class="form-select">
-                                    <option selected>Choose...</option>
-                                    <option>...</option>
-                                  </select>
-                                </div>
-                                <div class="col-md-2">
-                                  <label for="inputZip" class="form-label">Zip</label>
-                                  <input type="text" class="form-control" id="inputZip">
-                                </div>
-                                <div class="col-12">
-                                  <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                                    <label class="form-check-label" for="gridCheck">
-                                      Check me out
-                                    </label>
-                                  </div>
-                                </div>
-                                <div class="col-12">
-                                  <button type="submit" class="btn btn-primary">Sign in</button>
-                                </div>
-                              </form>
+                            @section('content')
+            <div class="">
+                <div class="row justify-content-center">
+                          
+                        <div class="card">
+                           
+
+                            <div class="card-body">
+                              
+                                <form method="POST" action="{{ route('admin.login') }}">
+                                    @csrf
+
+                                    <div class="row mb-3">
+                                        <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+
+                                        <div class="col-md-6">
+                                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+
+                                           
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+
+                                        <div class="col-md-6">
+                                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-md-6 offset-md-4">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                                                <label class="form-check-label" for="remember">
+                                                    {{ __('Remember Me') }}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-0">
+                                        <div class="col-md-8 offset-md-4">
+                                            <button type="submit" class="btn btn-primary">
+                                                {{ __('Login') }}
+                                            </button>
+
+                                            
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                              <button type="button" class="btn btn-primary">Understood</button>
+                        </div>
+                    </div>
+                
+            </div>
                             </div>
+                            
                           </div>
                         </div>
                       </div>
@@ -146,8 +155,8 @@
                           </button>
                         <ul class="dropdown-menu mt-2 shadow dropdown-menu-end">
                         <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
-            @if (Route::has('login'))
-                <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
+                 @if (Route::has('login'))
+                   <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
                     @auth
                         <a href="{{ url('/home') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Home</a>
                     @else
@@ -161,7 +170,7 @@
             @endif
         </div>
                           <li><hr class="dropdown-divider"></li>
-                          <li><a class="dropdown-item" href="#">Something else here</a></li>
+                          <li><a class="dropdown-item" href="#">Others</a></li>
                         </ul>
                       </li>
                     </ul>
@@ -171,6 +180,15 @@
                 </div>
               </nav>
          </div>
+         @if ($errors->any())
+                                   <div class="alert alert-danger text-center">
+                                     
+                                          @foreach ($errors->all() as $error)
+                                              <h6>{{ $error }}</h6>
+                                          @endforeach
+                                      
+                                   </div>
+                                 @endif
          <!-------------- slider ----- -->
 
          <div class="px-md-5 ">
@@ -187,7 +205,13 @@
                   <h5 class="text-white fs-1 fw-bold">Premier Online Bidding</h5>
                   <p class="text-white">Best Online Auction Site Providing 100% Reliable and Secured Auctioning-Bidding Services</p>
                   <div class="d-flex justify-content-center">
-                    <button type="button" class="btn nav-link btn-success text-white fw-bold fs-6">JOIN US</button>
+                    <button type="button" class="btn  btn-success">
+                   
+                    @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="text-white fw-bold nav-link fs-6">JOIN US</a>
+                        @endif
+
+                    </button>
                   </div>
                 </div>
               </div>
@@ -197,7 +221,13 @@
                   <h5 class="text-white fs-1 fw-bold">Premier Online Bidding</h5>
                   <p class="text-white">Best Online Auction Site Providing 100% Reliable and Secured Auctioning-Bidding Services</p>
                   <div class="d-flex justify-content-center">
-                    <button type="button" class="btn nav-link btn-success text-white fw-bold fs-6">JOIN US</button>
+                  <button type="button" class="btn  btn-success  ">
+                   
+                   @if (Route::has('register'))
+                           <a href="{{ route('register') }}" class="text-white fw-bold nav-link fs-6">JOIN US</a>
+                       @endif
+
+                   </button>
                   </div>
                 </div>
               </div>
@@ -207,7 +237,13 @@
                   <h5 class="text-white fs-1 fw-bold">Premier Online Bidding</h5>
                   <p class="text-white">Best Online Auction Site Providing 100% Reliable and Secured Auctioning-Bidding Services</p>
                   <div class="d-flex justify-content-center">
-                    <button type="button" class="btn nav-link btn-success text-white fw-bold fs-6">JOIN US</button>
+                  <button type="button" class="btn  btn-success  ">
+                   
+                   @if (Route::has('register'))
+                           <a href="{{ route('register') }}" class="text-white fw-bold nav-link fs-6">JOIN US</a>
+                       @endif
+
+                   </button>
                   </div>
                 </div>
               </div>
@@ -366,6 +402,14 @@
         </div>
     </section>
     </main>
+    <script>
+    @if ($errors->any())
+        var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {});
+        myModal.show();
+    @endif
+</script>
+
+    </body>
 <!-- footer section -->
   <footer class="text-center text-lg-start text-dark" style="background-color: #ECEFF1">
    

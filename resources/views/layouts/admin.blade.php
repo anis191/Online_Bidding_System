@@ -9,7 +9,8 @@
     <!-- boostrap icon link -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- css link -->
-    <link rel="stylesheet" href="admin/style.css">
+    <link rel="stylesheet" href="{{ asset('/admin/style.css') }}">
+
     <!-- material symbol link for icon -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <!-- font awsome kit -->
@@ -110,7 +111,7 @@
                      </a>
                   </li>
                   <li>
-                     <a href="#" class="nav-link active px-3 ">
+                    <a href="{{url('/categories')}}" class="nav-link active px-3 ">
                       <span >
                         <i class="fa-solid fa-list"></i>
                         </span>
@@ -149,135 +150,21 @@
           </div>
          
     </header>
-
+    <main class="">
+   
+         @yield('content')
 
  
- <main class="py-4">
-            @yield('content')
-        </main>
-   
-    <!-- footer section -->
-    <footer class="text-center text-lg-start text-dark" style="background-color: #ECEFF1">
-   
-   <section class="d-flex justify-content-between p-4 text-white" style="background-color: #21D192"  >
-     
-     <div class="me-5">
-       <span>Get connected with us on social networks:</span>
-     </div>
-     <div id="contact">
-       <a href="" class="text-white me-4 text-decoration-none">
-         <i class="fa-brands fa-facebook"></i>
-       </a>
-       <a href="" class="text-white me-4 text-decoration-none">
-         <i class="fab fa-twitter"></i>
-       </a>
-       <a href="" class="text-white me-4 text-decoration-none">
-         <i class="fab fa-google"></i>
-       </a>
-       <a href="" class="text-white me-4 text-decoration-none">
-         <i class="fab fa-instagram"></i>
-       </a>
-       <a href="" class="text-white me-4 text-decoration-none">
-         <i class="fab fa-linkedin"></i>
-       </a>
-       <a href="" class="text-white me-4 text-decoration-none">
-         <i class="fab fa-github"></i>
-       </a>
-     </div>
-   </section>
-   <!-- Section: Social media -->
-   <section class="">
-     <div class="container text-center text-md-start mt-5">
-       <!-- Grid row -->
-       <div class="row mt-3">
-         <!-- Grid column -->
-         <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-           <!-- Content -->
-           <h6 class="text-uppercase fw-bold">Premier Bidding</h6>
-           <hr
-               class="mb-4 mt-0 d-inline-block mx-auto"
-               style="width: 60px; background-color: #7c4dff; height: 2px"
-               />
-           <p>
-             Best Online Auction Site Providing 100% Reliable and Secured Auctioning-Bidding Services.
-           </p>
-         </div>
-         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-           <!-- Links -->
-           <h6 class="text-uppercase fw-bold">Products</h6>
-           <hr
-               class="mb-4 mt-0 d-inline-block mx-auto"
-               style="width: 60px; background-color: #7c4dff; height: 2px"
-               />
-           <p>
-             <a href="#!" class="text-dark text-decoration-none">Laptop </a>
-           </p>
-           <p>
-             <a href="#!" class="text-dark text-decoration-none">Mobile Phone</a>
-           </p>
-           <p>
-             <a href="#!" class="text-dark text-decoration-none">Smart Watch</a>
-           </p>
-           <p>
-             <a href="#!" class="text-dark text-decoration-none">Electronics</a>
-           </p>
-         </div>
-        
 
-       
-         <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-           <!-- Links -->
-           <h6 class="text-uppercase fw-bold">Useful links</h6>
-           <hr
-               class="mb-4 mt-0 d-inline-block mx-auto"
-               style="width: 60px; background-color: #7c4dff; height: 2px"
-               />
-           <p>
-             <a href="#!" class="text-dark text-decoration-none">Your Account</a>
-           </p>
-           <p>
-             <a href="#!" class="text-dark text-decoration-none">Become an Affiliate</a>
-           </p>
-           <p>
-             <a href="#!" class="text-dark text-decoration-none">Shipping Rates</a>
-           </p>
-           <p>
-             <a href="#!" class="text-dark text-decoration-none">Help</a>
-           </p>
-         </div>
+    
+  </main>
 
-         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-           <!-- Links -->
-           <h6 class="text-uppercase fw-bold">Contact</h6>
-           <hr
-               class="mb-4 mt-0 d-inline-block mx-auto"
-               style="width: 60px; background-color: #7c4dff; height: 2px"
-               />
-           <p><i class="fas fa-home mr-3"></i> Chittagong,Bangladesh</p>
-           <p><i class="fas fa-envelope mr-3"></i> info@example.com</p>
-           <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
-           <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
-         </div>
-     
-       </div>
-   
-     </div>
-   </section>
+  
 
-   <!-- Copyright -->
-   <div
-        class="text-center p-3"
-        style="background-color: rgba(0, 0, 0, 0.2)"
-        >
-     © 2024 Copyright:
-     <a class="text-dark" href="#"
-        >beattingbd.com</a
-       >
-   </div>
-   <!-- Copyright -->
- </footer>
+    
 
-  <!-- boostrap js link -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+   <!-- boostrap js link -->
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
