@@ -27,7 +27,7 @@ Route::get('/', function () {
 route::get('/home',[HomeController ::class,'show']);
 
 
-Route::get('/categories', [CategoryController::class, 'indexforadmin'])->name('categories.index');
+
 Route::get('/products/create', [ProductController::class,'create'])->name('products.create');
 Route::post('/products', [ProductController::class,'store'])->name('products.store');
 // routes/web.php
@@ -39,21 +39,28 @@ Route::get('/displayproducts', [ProductController::class, 'indexforuser'])->name
 Route::get('/products/search', [ProductController::class, 'search'])->name('products.search');
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
 Route::post('/bids', [BidController::class, 'store'])->name('bids.store');
-<<<<<<< HEAD
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // admin authentication
 
-
-
+Route::get('admin/login',[AdminController::class,'adminLoginForm'])->name('admin.login.form');
 Route::post('admin-login',[AdminController::class,'adminLogin'])->name('admin.login');
 
 Route::group(['middleware'=>'admin'],function(){
     Route::get('admin/admin_dashboard',[AdminDashboardController::class,'admindDashboard'])->name('admin.admin_dashboard');
+    Route::get('admin/logout',[AdminController::class,'adminLogout'])->name('admin.logout');
+    Route::get('categories/admin',[CategoryController::class,'indexforadmin'])->name('admin.categories.index');
+    Route::post('category-create',[CategoryController::class,'createCategory'])->name('category.create');
+    Route::get('/categories/{id}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
+    // Route to update the specific category
+Route::put('/categories/{id}', [CategoryController::class, 'update'])->name('categories.update');
+Route::delete('/admin/categories/{id}', [CategoryController::class, 'destroyCategory'])->name('admin.categories.destroy');
+
+
+
+
 });
-=======
-Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
-//Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
->>>>>>> 0094873a2dbb51f4f29c17e923078b0a683b9158
+

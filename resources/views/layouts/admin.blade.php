@@ -16,7 +16,7 @@
     <!-- font awsome kit -->
     <script src="https://kit.fontawesome.com/a48a021ab7.js" crossorigin="anonymous"></script>
 </head>
-<body>
+<body style=" background-color: aliceblue;">
     <header >
          <!-- nav bar -->
          <div class="fixed-top bg-light">
@@ -47,31 +47,21 @@
                       
                       
                     
-                      
-                      <li class="nav-item">
-                      
-                                                <!-- Button trigger modal -->
-                      <button type="button" class="btn nav-link text-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                        logout
-                      </button>
-
                      
-
-                      </li>
                       
-                      <li class="nav-item dropdown">
-                        <button class="btn  dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="material-symbols-outlined">
-                                person_add
-                                </span>
-                          </button>
-                        <ul class="dropdown-menu mt-2 shadow dropdown-menu-end">
-                          <li><a class="dropdown-item" href="#">Log In </a></li>
-                          <li><a class="dropdown-item" href="#">Sign Up</a></li>
-                          <li><hr class="dropdown-divider"></li>
-                          <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                      </li>
+                 @auth('admin')
+                                <li class="nav-item text-center my-auto">
+                                 
+                                     <h4> {{ Auth::guard('admin')->user()->name }}
+                                     </h4>
+                                    </li>
+                            @else
+                              <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.login.form') }}">Login</a>
+                              </li>
+                    @endauth
+                       
+                    
                     </ul>
                     
                    
@@ -88,7 +78,7 @@
               <div class="offcanvas-title " id="offcanvasExampleLabel">
                  <div>
                   <a class="navbar-brand px-3" href="#">
-                    <img class="h-25 w-25"rounded-circle src="images/bidding.png" alt="">
+                    <img class="h-25 w-25"rounded-circle src="{{url('images/bidding.png')}}" alt="">
                   </a>
                   <div class="text-success ps-3 fs-5 fw-bold">
                     online Bidding System
@@ -105,13 +95,13 @@
               <nav>
                 <ul class="navbar-nav">
                   <li>
-                     <a href="#" class="nav-link active px-3   ">
+                     <a href="{{url('admin/admin_dashboard')}}" class="nav-link active px-3   ">
                       <span class="text-dark"><i class="bi bi-house-door"></i></span>
                       Home
                      </a>
                   </li>
                   <li>
-                    <a href="{{url('/categories')}}" class="nav-link active px-3 ">
+                    <a href="{{url('/categories/admin')}}" class="nav-link active px-3 ">
                       <span >
                         <i class="fa-solid fa-list"></i>
                         </span>
@@ -143,6 +133,14 @@
                      Users
                     </a>
                  </li>
+                  <li>
+                    <a href="{{url('admin/logout')}}" class="nav-link active px-3 ">
+                     <span>
+                     <i class="bi bi-box-arrow-right"></i>
+                     </span>
+                     Sign Out 
+                    </a>
+                 </li>
                 </ul>
               </nav>
           
@@ -150,7 +148,7 @@
           </div>
          
     </header>
-    <main class="">
+    <main >
    
          @yield('content')
 

@@ -24,25 +24,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach($categories as $category)
-                            <tr>
-                                <td>{{ $category->id }}</td>
-                                <td>{{ $category->name }}</td>
-                                <td>
-                                    <!-- Link to Update page -->
-                                    <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-warning btn-sm">Update</a>
-                                </td>
-                                <td>
-                                    <!-- Form for delete action -->
-                                    <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this category?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-
+                                @foreach($categories as $category)
+                                    <tr>
+                                    <form>
+                                    @csrf
+                                        <td>{{ $category->id }}</td>
+                                        <td>{{ $category->name }}</td>
+                                        <td>
+                                            
+                                                <button type="submit" class="btn btn-warning btn-sm">Update</button>
+                                                
+                                            
+                                        </td>
+                                        <td>
+                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                        </td>
+                                        </form>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -90,11 +89,6 @@
                     </div>
                 </div>
                 </div>
-
-
-
-
-
                    
                 </div>
             </div>

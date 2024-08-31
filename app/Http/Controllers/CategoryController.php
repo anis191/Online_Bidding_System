@@ -15,101 +15,91 @@ class CategoryController extends Controller
         $categories=DB::table('categories')->get();
         return view('admin\categories', ['categories' => $categories]);
     }
-    public function indexforsusers()
-    {
-        $categories=DB::table('categories')->get();
-        return view('user\home', ['categories' => $categories]);
+    
+    public function createCategory(Request $request){
+        // session for duplicate value: 
+            $existingCategory = DB::table('categories')->where('name', $request->name)->first();
+
+            if ($existingCategory) {
+                // If a category with the same name exists, flash an error message
+                session()->flash('addError', 'Category name already exists!');
+                return redirect()->route('admin.categories.index')->withInput();
+            }
+
+        $categories= DB::table('categories')->insert(
+            [
+                'name'=>$request->name,
+            ]
+            );
+            
+            if($categories){
+                session()->flash('addSuccess','Data inserted Successfully');
+            }
+            else{
+                session()->flash('addError','Something went wrong!!Try again');
+            }
+            return redirect()->route('admin.categories.index');
+
     }
+        public function indexforsusers() {
+                   $categories=DB::table('categories')->get();
+                   return view('user\home', ['categories' => $categories]);
+              }
    
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-         return view('categories.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
     
-        $category = DB::table('categories')->insert([
-            'name' => $validatedData['name'],
-        ]);
 
-        if($category)
-        {
-            echo '<h1>Category Added successfully!</h1>';
-        }
-        else
-        {
-            echo '<h1>Error!</h1>';
-        }
-    }
+            
+                /**
+                 * Show the form for editing the specified resource.
+                 */
+                public function edit(string $id)
+                {
+                    $category = DB::table('categories')->find($id);
+                    return view('admin.edit_categories', ['data' => $category]);
+                }
+                
+                
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        $category = DB::table('categories')->where('id', $id)->first();
 
-        // Fetch all products under the specified category
-        $products = DB::table('products')->where('category_id', $id)->get();
-    
-        return view('category.show', compact('category', 'products'));
-    }
+                /**
+                 * Update the specified resource in storage.
+                 */
+                public function update(Request $request, string $id)
+            {
+                $request->validate([
+                    'name' => 'required|string|max:255|unique:categories,name,'.$id,
+                ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        $category = DB::table('categories')->find($id);
-        return view('categories.edit', ['category' => $category]);
-    }
+                $updated = DB::table('categories')
+                            ->where('id', $id)
+                            ->update([
+                                'name' => $request->name,
+                                'updated_at' => now(),
+                            ]);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
-    
-        $updated = DB::table('categories')
-                    ->where('id', $id)
-                    ->update([
-                        'name' => $request->name,
-                        'updated_at' => now(),
-                    ]);
-    
-        //if ($updated) {
-            //return redirect()->route('categories.index')->with('success', 'Category updated successfully!');
-        //} else {
-            //return redirect()->back()->with('error', 'Error updating category.');
-        //}
-    
-    }
+                if ($updated) {
+                    return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully!');
+                } else {
+                    return redirect()->back()->with('error', 'Error updating category.');
+                }
+            }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroyCategory(string $id)
     {
+       
         $deleted = DB::table('categories')->where('id', $id)->delete();
-
-    //if ($deleted) {
-        //return redirect()->route('categories.index')->with('success', 'Category deleted successfully!');
-    //} else {
-        //return redirect()->back()->with('error', 'Error deleting category.');
-   // }
+    
+        if ($deleted) {
+            return redirect()->route('admin.categories.index')->with('success', 'Category deleted successfully!');
+        } else {
+            return redirect()->back()->with('error', 'Error deleting category.');
+        }
     }
+    
+    
 }
 
