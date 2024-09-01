@@ -9,7 +9,9 @@ use Auth;
 class AdminController extends Controller
 {
 
-   
+   public function adminLoginForm(){
+      return redirect('/');
+   }
 
     public function adminLogin(Request $request){
         $request->validate([
@@ -26,6 +28,14 @@ class AdminController extends Controller
            ]);
         }
 }
+
+ //   ///    mehtod for admin logout  ///////           ///
+
+ public function adminLogout(){
+   Auth::guard('admin')->logout();
+   return redirect('/');
+  }
+  
 
 
 }

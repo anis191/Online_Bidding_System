@@ -46,7 +46,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // admin authentication
 
-Route::get('admin/login',[AdminController::class,'adminLoginForm'])->name('admin.login.form');
+Route::get('login/admin',[AdminController::class,'adminLoginForm'])->name('admin.login.form');
 Route::post('admin-login',[AdminController::class,'adminLogin'])->name('admin.login');
 
 Route::group(['middleware'=>'admin'],function(){
@@ -65,6 +65,10 @@ Route::delete('/admin/categories/{id}', [CategoryController::class, 'destroyCate
 Route::get('/admin/products', [ProductController::class,'indexforadmin'])->name('products.indexforadmin');
 Route::get('products/create', [ProductController::class, 'create'])->name('products.create');
 Route::post('/products', [ProductController::class,'store'])->name('products.store');
+Route::get('products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
+Route::put('products/{id}', [ProductController::class, 'update'])->name('products.update');
+Route::delete('products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+
 
 });
 

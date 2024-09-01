@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1>Products</h1>
+<h1 class="text-center">Products</h1>
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-10">
@@ -35,8 +35,17 @@
                                 <td>{{ $product->starting_bid }}</td>
                                 <td>{{ $product->bid_expiry }}</td>
                                 <td>
-                                    <!-- Add action buttons like Edit/Delete here -->
+                                        <!-- Update Button -->
+                                        <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning ">Edit</a>
+                                 
+                                        <!-- Delete Form -->
+                                        <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm " onclick="return confirm('Are you sure you want to delete this product?')">Delete</button>
+                                        </form>
                                 </td>
+                            
                             </tr>
                         @endforeach
 

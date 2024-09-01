@@ -84,8 +84,71 @@ class ProductController extends Controller
         return redirect()->back()->with('error', 'Error adding product.');
     }
 }
+// method to edit product
+public function edit($id)
+{
+    $product = DB::table('products')->where('id', $id)->first();
+    $categories = DB::table('categories')->get(); // Fetch categories for the select dropdown
+    return view('admin.edit-product', compact('product', 'categories')); // Create a view for editing products
+}
 
-    
+public function update(Request $request, $id)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'description' => 'required|string',
+        'starting_bid' => 'required|numeric',
+        'bid_expiry' => 'required|date',
+        'category_id' => 'required|exists:categories,id',
+        'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
+
+    $productData = [
+        'name' => $request->name,
+        'description' => $request->description,
+        'starting_bid' => $request->starting_bid,
+        'bid_expiry' => $request->bid_expiry,
+        'category_id' => $request->category_id,
+        'updated_at' => now(),
+    ];
+
+    if ($request->hasFile('image')) {
+        // Handle image upload
+        $imageName = time() . '.' . $request->image->extension();
+        $request->image->move(public_path('images'), $imageName);
+        $productData['image'] = $imageName;
+    }
+
+    // Update product data in database
+    $updated = DB::table('products')->where('id', $id)->update($productData);
+
+    if ($updated) {
+        return redirect()->route('products.indexforadmin')->with('success', 'Product updated successfully!');
+    } else {
+        return redirect()->back()->with('error', 'Error updating product.');
+    }
+}
+
+// mehod for delete
+
+public function destroy($id)
+{
+    $deleted = DB::table('products')->where('id', $id)->delete();
+
+    if ($deleted) {
+        return redirect()->route('products.indexforadmin')->with('success', 'Product deleted successfully!');
+    } else {
+        return redirect()->back()->with('error', 'Error deleting product.');
+    }
+}
+
+
+
+
+
+
+
+
 
     /**
      * Display the specified resource.
@@ -116,26 +179,12 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
+    
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
-    }
+   
     public function search(Request $request)
 {
     // Validate the search query
