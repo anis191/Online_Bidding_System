@@ -28,10 +28,10 @@ route::get('/home',[HomeController ::class,'show']);
 
 
 
-Route::get('/products/create', [ProductController::class,'create'])->name('products.create');
+
 Route::post('/products', [ProductController::class,'store'])->name('products.store');
 // routes/web.php
-Route::get('/admin/products', [ProductController::class,'indexforadmin'])->name('products.indexforadmin');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -52,6 +52,7 @@ Route::post('admin-login',[AdminController::class,'adminLogin'])->name('admin.lo
 Route::group(['middleware'=>'admin'],function(){
     Route::get('admin/admin_dashboard',[AdminDashboardController::class,'admindDashboard'])->name('admin.admin_dashboard');
     Route::get('admin/logout',[AdminController::class,'adminLogout'])->name('admin.logout');
+    // route for categories
     Route::get('categories/admin',[CategoryController::class,'indexforadmin'])->name('admin.categories.index');
     Route::post('category-create',[CategoryController::class,'createCategory'])->name('category.create');
     Route::get('/categories/{id}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
@@ -60,7 +61,10 @@ Route::put('/categories/{id}', [CategoryController::class, 'update'])->name('cat
 Route::delete('/admin/categories/{id}', [CategoryController::class, 'destroyCategory'])->name('admin.categories.destroy');
 
 
-
+// route for products
+Route::get('/admin/products', [ProductController::class,'indexforadmin'])->name('products.indexforadmin');
+Route::get('products/create', [ProductController::class, 'create'])->name('products.create');
+Route::post('/products', [ProductController::class,'store'])->name('products.store');
 
 });
 

@@ -3,12 +3,12 @@
 
 @section('content')
    
-<!-- resources/views/categories.blade.php -->
 
 
-    <div class="container">
+
+    <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-12">
+            <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">Categories</div>
 

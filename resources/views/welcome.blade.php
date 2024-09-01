@@ -68,7 +68,7 @@
                       
                                                 <!-- Button trigger modal -->
                       <button type="button" class="btn nav-link text-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                        admin Login
+                      Administration
                       </button>
 
                       <!-- Modal -->
@@ -77,7 +77,7 @@
                         <div class="modal-dialog modal-dialog-centered">
                           <div class="modal-content">
                             <div class="modal-header">
-                              <h5 class="modal-title text-center" id="staticBackdropLabel">Admin Login</h5>
+                              <h5 class="modal-title text-center" id="staticBackdropLabel">Administration </h5>
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">

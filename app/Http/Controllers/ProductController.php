@@ -26,65 +26,65 @@ class ProductController extends Controller
     }
     public function indexforadmin()
     {
-        //
+        $categories = DB::table('categories')->get(); // Fetch categories
+    
         $products = DB::table('products')
-    ->join('categories', 'products.category_id', '=', 'categories.id')
-    ->select('products.*', 'categories.name as category_name')
-    ->get();
-        return view('admin\products', ['products' => $products]);
+            ->join('categories', 'products.category_id', '=', 'categories.id')
+            ->select('products.*', 'categories.name as category_name')
+            ->get(); // Fetch products with category names
+    
+        return view('admin.products', compact('categories', 'products')); // Pass both to the view
     }
-
+    
+    
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        $categories = DB::table('categories')->get();
-        return view('admin\addproduct', ['categories' => $categories]);
-
+        $categories = DB::table('categories')->get(); // Fetch categories from the database
+        return view('admin.products', compact('categories')); // Pass the categories to the view
     }
+    
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'starting_bid' => 'required|numeric',
-            'start_price' => 'required|numeric',
-            'bid_expiry' => 'required|date',
-            'category_id' => 'required|exists:categories,id',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'description' => 'required|string',
+        'starting_bid' => 'required|numeric',
+        'bid_expiry' => 'required|date',
+        'category_id' => 'required|exists:categories,id',
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
 
-        // Handle image upload
-        $imageName = time() . '.' . $request->image->extension();
-        $request->image->move(public_path('images'), $imageName);
+    // Handle image upload
+    $imageName = time() . '.' . $request->image->extension();
+    $request->image->move(public_path('images'), $imageName);
 
-        // Store product data in database
-        $product = DB::table('products')->insert([
-            'name' => $request->name,
-            'description' => $request->description,
-            'starting_bid' => $request->starting_bid,
-            'start_price' => $request->start_price,
-            'bid_expiry' => $request->bid_expiry,
-            'category_id' => $request->category_id,
-            'image' => $imageName,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-        
-        if ($product) {
-            
-           return redirect()->route('categories.index')->with('success', 'Product added successfully!');
-       } else {
-           return redirect()->back()->with('error', 'Error adding product.');
-          
-        }
+    // Store product data in database
+    $product = DB::table('products')->insert([
+        'name' => $request->name,
+        'description' => $request->description,
+        'starting_bid' => $request->starting_bid,
+       
+        'bid_expiry' => $request->bid_expiry,
+        'category_id' => $request->category_id,
+        'image' => $imageName,
+        'created_at' => now(),
+        'updated_at' => now(),
+    ]);
     
+    if ($product) {
+        return redirect()->route('products.indexforadmin')->with('success', 'Product added successfully!');
+    } else {
+        return redirect()->back()->with('error', 'Error adding product.');
     }
+}
+
     
 
     /**
