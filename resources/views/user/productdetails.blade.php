@@ -1,40 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Details</title>
-    
-</head>
-<body>
-    <div class="container">
-        <h1>{{ $product->name }}</h1>
-        <img src="{{ asset('images/' . $product->image) }}" class="img-fluid" alt="{{ $product->name }}">
-        <p>{{ $product->description }}</p>
-        <p>Starting Bid: ${{ $product->starting_bid }}</p>
-        <p>Start Price: ${{ $product->start_price }}</p>
-        <p>Bid Expiry: {{ $product->bid_expiry }}</p>
-        <p>{{ $product->days_left }}</p>
-        @if($product->highest_bid !== null)
-            <p>Highest Bid: ${{ $product->highest_bid }}</p>
-        @else
-            <p>No bids yet</p>
-        @endif
+@extends('layouts.app')
 
-        <!-- Bid Form -->
-        <form action="#" method="POST" class="mt-4">
-            @csrf
-            <input type="hidden" name="product_id" value="{{ $product->id }}">
-            <div class="form-group">
-                <label for="bid_amount">Place your bid:</label>
-                <input type="number" name="bid_amount" id="bid_amount" class="form-control" min="{{ $product->starting_bid }}" step="0.01" required>
+@section('content')
+<div class="container">
+    <div class="row">
+        <!-- Sidebar for categories -->
+        <div class="col-md-3">
+            <h3>Categories</h3>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <a href="{{ route('home') }}">All</a>
+                </li>
+                @foreach ($categories as $category)
+                    <li class="list-group-item">
+                        <a href="{{ route('home', ['category_id' => $category->id]) }}">
+                            {{ $category->name }}
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+
+        <!-- Main content area -->
+        <div class="col-md-6">
+            <div class="card ">
+                <div class="h-100">
+                <img src="{{ asset('images/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ $product->name }}</h5>
+                    <p>{{ $product->description }}</p>
+                    <p>Starting Bid: ${{ $product->starting_bid }}</p>
+                    <p>Highest Bid: ${{ $highestBid ?? 'No bids yet' }}</p>
+                    <p>{{ $product->days_left }}</p>
+                    <a href="#" class="btn btn-success">Place a Bid</a>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary">Submit Bid</button>
-        </form>
-
-        <a href="{{ route('products.indexforuser') }}" class="btn btn-secondary mt-2">Back to Products</a>
+        </div>
     </div>
-
- 
-</body>
-</html>
+</div>
+@endsection

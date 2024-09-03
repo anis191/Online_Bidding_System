@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -9,31 +10,29 @@ class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
-     */
-    public function indexforuser(Request $request)
-    {
-        //
-        $query = DB::table('products');
+     */  public function indexForUser(Request $request)
+{
+    $categories = Category::all();
+    $products = Product::when($request->category_id, function ($query) use ($request) {
+        return $query->where('category_id', $request->category_id);
+    })->get();
 
-        if ($request->has('category_id')) {
-            $query->where('category_id', $request->input('category_id'));
-        }
-    
-        $products = $query->get();
-        $categories = DB::table('categories')->get();
-    
-        return view('user\index', ['products' => $products, 'categories' => $categories]);
-    }
+    // Debugging line to check product data
+    dd($products);
+
+    return view('user.index', compact('products', 'categories'));
+}
+
     public function indexforadmin()
     {
-        $categories = DB::table('categories')->get(); // Fetch categories
+        $categories = DB::table('categories')->get(); 
     
         $products = DB::table('products')
             ->join('categories', 'products.category_id', '=', 'categories.id')
             ->select('products.*', 'categories.name as category_name')
-            ->get(); // Fetch products with category names
+            ->get(); 
     
-        return view('admin.products', compact('categories', 'products')); // Pass both to the view
+        return view('admin.products', compact('categories', 'products')); 
     }
     
     
@@ -42,8 +41,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = DB::table('categories')->get(); // Fetch categories from the database
-        return view('admin.products', compact('categories')); // Pass the categories to the view
+        $categories = DB::table('categories')->get(); 
+        return view('admin.products', compact('categories'));
     }
     
 
@@ -88,8 +87,8 @@ class ProductController extends Controller
 public function edit($id)
 {
     $product = DB::table('products')->where('id', $id)->first();
-    $categories = DB::table('categories')->get(); // Fetch categories for the select dropdown
-    return view('admin.edit-product', compact('product', 'categories')); // Create a view for editing products
+    $categories = DB::table('categories')->get(); 
+    return view('admin.edit-product', compact('product', 'categories')); 
 }
 
 public function update(Request $request, $id)
@@ -153,28 +152,32 @@ public function destroy($id)
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
         $product = DB::table('products')
-        ->leftJoin(DB::raw('(SELECT product_id, MAX(bid_amount) as highest_bid FROM biddings GROUP BY product_id) as max_bids'), 
-            'products.id', '=', 'max_bids.product_id')
-        ->select(
-            'products.*', 
-            'max_bids.highest_bid',
-            DB::raw("
-                CASE 
-                    WHEN DATEDIFF(products.bid_expiry, CURDATE()) > 0 
-                        THEN CONCAT(DATEDIFF(products.bid_expiry, CURDATE()), ' days left')
-                    WHEN DATEDIFF(products.bid_expiry, CURDATE()) = 0 
-                        THEN CONCAT('Open until ', TIME_FORMAT(products.bid_expiry, '%H:%i'))
-                    ELSE 'Expired'
-                END as days_left")
-        )
-        ->where('products.id', $id)
-        ->first();
-
-    return view('user\productdetails', ['product' => $product]);
+            ->leftJoin(DB::raw('(SELECT product_id, MAX(bid_amount) as highest_bid FROM biddings GROUP BY product_id) as max_bids'), 
+                'products.id', '=', 'max_bids.product_id')
+            ->select(
+                'products.*', 
+                'max_bids.highest_bid',
+                DB::raw("
+                    CASE 
+                        WHEN DATEDIFF(products.bid_expiry, CURDATE()) > 0 
+                            THEN CONCAT(DATEDIFF(products.bid_expiry, CURDATE()), ' days left')
+                        WHEN DATEDIFF(products.bid_expiry, CURDATE()) = 0 
+                            THEN CONCAT('Open until ', TIME_FORMAT(products.bid_expiry, '%H:%i'))
+                        ELSE 'Expired'
+                    END as days_left")
+            )
+            ->where('products.id', $id)
+            ->first();
+    
+        // Fetch categories if needed in this view
+        $categories = DB::table('categories')->get();
+    
+        return view('user.productdetails', compact('product', 'categories'));
     }
+    
 
     /**
      * Show the form for editing the specified resource.

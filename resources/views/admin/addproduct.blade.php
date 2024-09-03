@@ -1,9 +1,6 @@
 @extends('layouts.admin')
 @section('content')
 
-
-<!-- resources/views/products/create.blade.php -->
-
 <div class="container mt-5">
 <h1>Add Product</h1>
 

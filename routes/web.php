@@ -34,15 +34,17 @@ Route::post('/products', [ProductController::class,'store'])->name('products.sto
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/displayproducts', [ProductController::class, 'indexforuser'])->name('products.indexforuser');
+Route::get('/products', [HomeController::class, 'indexForUser'])->name('products.indexforuser');
+
+
 Route::get('/products/search', [ProductController::class, 'search'])->name('products.search');
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
 Route::post('/bids', [BidController::class, 'store'])->name('bids.store');
 
 Auth::routes();
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 
 // admin authentication
 
@@ -71,4 +73,10 @@ Route::delete('products/{id}', [ProductController::class, 'destroy'])->name('pro
 
 
 });
+
+
+
+
+
+
 
