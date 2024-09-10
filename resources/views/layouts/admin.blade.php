@@ -141,6 +141,12 @@
                      Sign Out 
                     </a>
                  </li>
+                 <li>
+                    <a href="{{url('/admin/winner-list')}}" class="nav-link active px-3 ">
+                    
+                     Winners List
+                    </a>
+                 </li>
                 </ul>
               </nav>
           

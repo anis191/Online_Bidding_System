@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('type')->default('default_type')->change();
+            
+                $table->string('type')->default('default_type');
+            
         });
     }
 
@@ -22,7 +24,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('type')->default(null)->change();
+            // $table->dropColumn('type');
         });
     }
 };
