@@ -25,12 +25,12 @@
 </div>
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-5">
 @foreach ($products as $product)
-  <div class="col mb-3">
+  <div class="col mb-5">
     <div class="card h-75">
     <img src="{{ asset('images/' . $product->image) }}" class="card-img-top h-100" alt="{{ $product->name }}">
       
     </div>
-    <div class="">
+    <div class="my-2">
       <h5 class="card-title fw-bold">{{ $product->name }}</h5>
         <p class="card-text">{{$product->description}}</p>
         <a href="{{ route('products.show', ['id' => $product->id]) }}" class="btn btn-info"><Details></Details></a>

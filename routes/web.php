@@ -8,6 +8,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BidController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,7 +73,11 @@ Route::put('products/{id}', [ProductController::class, 'update'])->name('product
 Route::delete('products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
 Route::get('/winner-list', [BidController::class, 'showWinnerList'])->name('winner.list');
 
+// Route to display all users (Admin middleware can be applied if needed)
+Route::get('admin/users', [AdminController::class, 'displayUsers'])->name('admin.users');
 
+// Route to remove a user
+Route::delete('admin/users/{id}', [AdminController::class, 'removeUser'])->name('admin.users.remove');
 
 });
 Route::post('product/bid/store', [BidController::class, 'store'])->name('bid.store');

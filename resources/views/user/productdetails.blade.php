@@ -2,17 +2,21 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
+<a class="btn btn-primary mb-3" href="{{ route('home') }}">Home</a>
+    <div class="row shadow p-3">
         <!-- Sidebar for categories -->
-        <div class="col-md-3">
-            <h3>Categories</h3>
+        
+                    
+                
+        <div class="col-md-4">
+            <h3> Categories</h3>
             <ul class="list-group">
                 <li class="list-group-item">
-                    <a href="{{ route('home') }}">All</a>
+                    <a class="nav-link fw-bold" href="{{ route('home') }}">All</a>
                 </li>
                 @foreach ($categories as $category)
                     <li class="list-group-item">
-                        <a href="{{ route('home', ['category_id' => $category->id]) }}">
+                        <a class="nav-link mb-2 mx-2" href="{{ route('home', ['category_id' => $category->id]) }}">
                             {{ $category->name }}
                         </a>
                     </li>

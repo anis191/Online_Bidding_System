@@ -126,7 +126,7 @@
                     </a>
                  </li> -->
                   <li>
-                    <a href="#" class="nav-link active px-3">
+                    <a href="{{url('admin/users')}}" class="nav-link active px-3">
                      <span>
                       <i class="fa-solid fa-users"></i>
                      </span>
