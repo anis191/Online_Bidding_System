@@ -71,7 +71,7 @@ Route::post('/products', [ProductController::class,'store'])->name('products.sto
 Route::get('products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
 Route::put('products/{id}', [ProductController::class, 'update'])->name('products.update');
 Route::delete('products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
-Route::get('/winner-list', [BidController::class, 'showWinnerList'])->name('winner.list');
+Route::get('/admin/winner-list', [BidController::class, 'showWinnerList'])->name('winner.list');
 
 // Route to display all users (Admin middleware can be applied if needed)
 Route::get('admin/users', [AdminController::class, 'displayUsers'])->name('admin.users');

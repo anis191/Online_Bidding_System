@@ -87,44 +87,42 @@ class BidController extends Controller
         //
     }
     public function getExpiredProductsWithHighestBids()
-{
+    {
+        // Subquery to get the highest bid for each product
+        $highestBidsSubquery = DB::table('biddings')
+            ->select('product_id', DB::raw('MAX(bid_amount) as highest_bid'))
+            ->groupBy('product_id');
     
-       // Subquery to get the highest bid for each product
-       $highestBidsSubquery = DB::table('biddings')
-       ->select('product_id', DB::raw('MAX(bid_amount) as highest_bid'))
-       ->groupBy('product_id');
-
-   // Join the subquery with other tables
-   $winners = DB::table('biddings')
-       ->join('products', 'biddings.product_id', '=', 'products.id')
-       ->join('users', 'biddings.user_id', '=', 'users.id')
-       ->joinSub($highestBidsSubquery, 'highest_bids', function ($join) {
-           $join->on('biddings.product_id', '=', 'highest_bids.product_id')
-                ->on('biddings.bid_amount', '=', 'highest_bids.highest_bid');
-       })
-       ->select(
-           'products.name as product_name',
-           'users.name as user_name',
-           'users.email as user_email',
-           'highest_bids.highest_bid'
-       )
-       ->where('products.bid_expiry', '<', DB::raw('CURDATE()')) // Ensure only expired products
-       ->orderBy('products.name')
-       ->get(); // Fetch the results as a collection
-
-return $highestBidsSubquery;
+        // Join the subquery with other tables
+        $winners = DB::table('biddings')
+            ->join('products', 'biddings.product_id', '=', 'products.id')
+            ->join('users', 'biddings.user_id', '=', 'users.id')
+            ->joinSub($highestBidsSubquery, 'highest_bids', function ($join) {
+                $join->on('biddings.product_id', '=', 'highest_bids.product_id')
+                     ->on('biddings.bid_amount', '=', 'highest_bids.highest_bid');
+            })
+            ->select(
+                'products.name as product_name',
+                'users.name as user_name',
+                'users.email as user_email',
+                'highest_bids.highest_bid'
+            )
+            ->where('products.bid_expiry', '<', DB::raw('CURDATE()')) // Ensure only expired products
+            ->orderBy('products.name')
+            ->get(); // Fetch the results as a collection
     
+        // Return the winners collection
+        return $winners;
+    }
     
-}
-public function showWinnerList()
-{
-    // Get expired products and their highest bids
-    $winners = $this->getExpiredProductsWithHighestBids();
-
-    // Pass data to the view
-    return view('admin.winner_list', compact('winners'));
-}
-
+    public function showWinnerList()
+    {
+        // Get expired products and their highest bids
+        $winners = $this->getExpiredProductsWithHighestBids();
+    
+        // Pass data to the view
+        return view('admin.winner_list', compact('winners'));
+    }
 
 
     
