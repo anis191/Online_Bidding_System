@@ -153,30 +153,37 @@ public function destroy($id)
      * Display the specified resource.
      */
     public function show($id)
-    {
-        $product = DB::table('products')
-            ->leftJoin(DB::raw('(SELECT product_id, MAX(bid_amount) as highest_bid FROM biddings GROUP BY product_id) as max_bids'), 
-                'products.id', '=', 'max_bids.product_id')
-            ->select(
-                'products.*', 
-                'max_bids.highest_bid',
-                DB::raw("
-                    CASE 
-                        WHEN DATEDIFF(products.bid_expiry, CURDATE()) > 0 
-                            THEN CONCAT(DATEDIFF(products.bid_expiry, CURDATE()), ' days left')
-                        WHEN DATEDIFF(products.bid_expiry, CURDATE()) = 0 
-                            THEN CONCAT('Open until ', TIME_FORMAT(products.bid_expiry, '%H:%i'))
-                        ELSE 'Expired'
-                    END as days_left")
-            )
-            ->where('products.id', $id)
-            ->first();
+{
+    $product = DB::table('products')
+        ->leftJoin(DB::raw('(SELECT product_id, MAX(bid_amount) as highest_bid FROM biddings GROUP BY product_id) as max_bids'), 
+            'products.id', '=', 'max_bids.product_id')
+        ->leftJoin('biddings', function($join) {
+            $join->on('biddings.product_id', '=', 'products.id')
+                 ->on('biddings.bid_amount', '=', 'max_bids.highest_bid');
+        })
+        ->leftJoin('users', 'biddings.user_id', '=', 'users.id')
+        ->select(
+            'products.*', 
+            'max_bids.highest_bid',
+            'users.name as highest_bidder_name', // Assuming 'name' is the column for the user's name
+            DB::raw("
+                CASE 
+                    WHEN DATEDIFF(products.bid_expiry, CURDATE()) > 0 
+                        THEN CONCAT(DATEDIFF(products.bid_expiry, CURDATE()), ' days left')
+                    WHEN DATEDIFF(products.bid_expiry, CURDATE()) = 0 
+                        THEN CONCAT('Open until ', TIME_FORMAT(products.bid_expiry, '%H:%i'))
+                    ELSE 'Expired'
+                END as days_left")
+        )
+        ->where('products.id', $id)
+        ->first();
     
-        // Fetch categories if needed in this view
-        $categories = DB::table('categories')->get();
+    // Fetch categories if needed in this view
+    $categories = DB::table('categories')->get();
     
-        return view('user.productdetails', compact('product', 'categories'));
-    }
+    return view('user.productdetails', compact('product', 'categories'));
+}
+
     
 
     /**

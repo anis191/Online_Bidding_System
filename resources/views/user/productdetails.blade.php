@@ -31,6 +31,13 @@
                     <p>{{ $product->description }}</p>
                     <p>Starting Bid: ${{ $product->starting_bid }}</p>
                     <p>Highest Bid: ${{ $product->highest_bid ?? 'No bids yet' }}</p>
+                    
+                    @if ($product->days_left === 'Expired')
+                        <p>Winner: {{ $product->highest_bidder_name ?? 'No winner' }}</p>
+                    @else
+                        <p>Highest Bidder: {{ $product->highest_bidder_name ?? 'No bids yet' }}</p>
+                    @endif
+                    
                     <p>{{ $product->days_left }}</p>
 
                     @if ($product->days_left !== 'Expired')
