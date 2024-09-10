@@ -8,6 +8,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BidController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,9 +28,11 @@ Route::get('/', function () {
 route::get('/home',[HomeController ::class,'show']);
 
 
-
-
+Route::get('user/account', [HomeController::class, 'showAccount'])->name('user.account');
+Route::get('user/update', [HomeController::class, 'edit'])->name('user.update');
+Route::post('user/update', [HomeController::class, 'update'])->name('user.update')->middleware('auth');
 Route::post('/products', [ProductController::class,'store'])->name('products.store');
+Route::get('user/bids', [HomeController::class, 'showBids'])->name('user.bids')->middleware('auth');
 // routes/web.php
 
 Auth::routes();
@@ -72,7 +75,11 @@ Route::put('products/{id}', [ProductController::class, 'update'])->name('product
 Route::delete('products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
 Route::get('/admin/winner-list', [BidController::class, 'showWinnerList'])->name('winner.list');
 
+// Route to display all users (Admin middleware can be applied if needed)
+Route::get('admin/users', [AdminController::class, 'displayUsers'])->name('admin.users');
 
+// Route to remove a user
+Route::delete('admin/users/{id}', [AdminController::class, 'removeUser'])->name('admin.users.remove');
 
 });
 Route::post('product/bid/store', [BidController::class, 'store'])->name('bid.store');

@@ -1,13 +1,15 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Session;
 use Auth;
 class AdminController extends Controller
 {
+
+
 
    public function adminLoginForm(){
       return redirect('/');
@@ -39,5 +41,19 @@ class AdminController extends Controller
   }
   
 
+//   display all the users
+  public function displayUsers()
+    {
+        $users = User::all(); 
+        return view('admin.users', compact('users')); 
+    }
+
+    // Remove a user by id
+    public function removeUser($id)
+    {
+        $user = User::findOrFail($id); 
+        $user->delete(); 
+        return redirect()->route('admin.users')->with('success', 'User removed successfully');
+    }
 
 }
