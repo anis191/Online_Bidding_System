@@ -26,35 +26,34 @@ class BidController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+{
     // Validate the request
     $request->validate([
         'product_id' => 'required|exists:products,id',
         'bid_amount' => 'required|numeric|min:0.01',
     ]);
 
-    // Ensure bid is greater than the current highest bid if there is one
+    // Fetch the highest bid for the product
     $highestBid = DB::table('biddings')
         ->where('product_id', $request->product_id)
         ->max('bid_amount');
 
+    // Check if the new bid is higher than the current highest bid
     if ($highestBid !== null && $request->bid_amount <= $highestBid) {
         return redirect()->back()->with('error', 'Your bid must be higher than the current highest bid.');
     }
 
     // Store the bid
     DB::table('biddings')->insert([
-        'user_id' => Auth::id(), // Assuming user is logged in
+        'user_id' => Auth::id(), 
         'product_id' => $request->product_id,
         'bid_amount' => $request->bid_amount,
         'created_at' => now(),
         'updated_at' => now(),
-       
     ]);
 
     return redirect()->route('products.show', ['id' => $request->product_id])->with('success', 'Bid placed successfully.');
-    }
-
+}
     /**
      * Display the specified resource.
      */
@@ -107,12 +106,11 @@ class BidController extends Controller
                 'users.email as user_email',
                 'highest_bids.highest_bid'
             )
-            ->where('products.bid_expiry', '<', DB::raw('CURDATE()')) // Ensure only expired products
+            ->where('products.bid_expiry', '<', DB::raw('CURDATE()')) 
             ->orderBy('products.name')
-            ->get(); // Fetch the results as a collection
-    
-        // Return the winners collection
-        return $winners;
+            ->get(); 
+       
+           return $winners;
     }
     
     public function showWinnerList()
@@ -120,7 +118,7 @@ class BidController extends Controller
         // Get expired products and their highest bids
         $winners = $this->getExpiredProductsWithHighestBids();
     
-        // Pass data to the view
+       
         return view('admin.winner_list', compact('winners'));
     }
 

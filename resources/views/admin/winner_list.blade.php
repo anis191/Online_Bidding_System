@@ -1,17 +1,17 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
-<div class="container">
-    <h2>Winner List</h2>
+<div class="container p-4 ">
+    <h2 class="text-center fw-bold">Winner List</h2>
     
    
-        <table class="table table-bordered">
+        <table class="table table-bordered ">
             <thead>
                 <tr>
                     <th>Product Name</th>
                     <th>User Name</th>
                     <th>User Email</th>
-                    <th>Highest Bid</th>
+                    <th>Bidd Amount</th>
                 </tr>
             </thead>
             <tbody>

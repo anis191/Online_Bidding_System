@@ -33,7 +33,7 @@
     <div class="my-2">
       <h5 class="card-title fw-bold">{{ $product->name }}</h5>
         <p class="card-text">{{$product->description}}</p>
-        <a href="{{ route('products.show', ['id' => $product->id]) }}" class="btn btn-info"><Details></Details></a>
+        <a href="{{ route('products.show', ['id' => $product->id]) }}" class="btn btn-info">Details</a>
       </div>
 
   </div>

@@ -54,7 +54,7 @@
 
     
   </main>
-<!-- footer section -->
+
 
   @endsection
 

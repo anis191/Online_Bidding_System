@@ -28,9 +28,11 @@ Route::get('/', function () {
 route::get('/home',[HomeController ::class,'show']);
 
 
-
-
+Route::get('user/account', [HomeController::class, 'showAccount'])->name('user.account');
+Route::get('user/update', [HomeController::class, 'edit'])->name('user.update');
+Route::post('user/update', [HomeController::class, 'update'])->name('user.update')->middleware('auth');
 Route::post('/products', [ProductController::class,'store'])->name('products.store');
+Route::get('user/bids', [HomeController::class, 'showBids'])->name('user.bids')->middleware('auth');
 // routes/web.php
 
 Auth::routes();

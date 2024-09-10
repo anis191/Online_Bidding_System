@@ -133,18 +133,19 @@
                      Users
                     </a>
                  </li>
-                  <li>
+                 
+                 <li>
+                    <a href="{{url('/admin/winner-list')}}" class="nav-link active px-3 ">
+                    <i class="fa-solid fa-magnifying-glass-dollar"></i>
+                     Winners List
+                    </a>
+                 </li>
+                 <li>
                     <a href="{{url('admin/logout')}}" class="nav-link active px-3 ">
                      <span>
                      <i class="bi bi-box-arrow-right"></i>
                      </span>
                      Sign Out 
-                    </a>
-                 </li>
-                 <li>
-                    <a href="{{url('/admin/winner-list')}}" class="nav-link active px-3 ">
-                    
-                     Winners List
                     </a>
                  </li>
                 </ul>

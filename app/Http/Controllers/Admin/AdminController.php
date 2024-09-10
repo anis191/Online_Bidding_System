@@ -44,8 +44,8 @@ class AdminController extends Controller
 //   display all the users
   public function displayUsers()
     {
-        $users = User::all(); // Fetch all users from the 'users' table
-        return view('admin.users', compact('users')); // Pass the users to a view
+        $users = User::all(); 
+        return view('admin.users', compact('users')); 
     }
 
     // Remove a user by id
