@@ -1,9 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-<div class="py-4">
-    <h3>Categories</h3>
+<div class="bid-banner p-5">
+     
+    <div class=" fw-bold fs-1  text-white text-center">Welcome To Our <br>ONLINE BIDDING SYSTEM</div>
+    <h1 class=" fw-bold fs-1  text-white text-center">BETTER...FASTER...MORE</h1>
+    
+    
+</div>
+
+
+    
+<div class="container ">
+<div class="py-4 ">
+    <h1 class="text-center my-3 text-success fw-bold bg-white">Products List For Bidding</h1>
     <div class="d-flex flex-row ">
         <a href="{{ route('home') }}" class="btn btn-primary mb-2">All</a>
         @foreach ($categories as $category)
@@ -13,29 +23,24 @@
         @endforeach
     </div>
 </div>
-
-
-    <div class="row">
-        <!-- Sidebar for categories -->
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-5">
+@foreach ($products as $product)
+  <div class="col mb-3">
+    <div class="card h-75">
+    <img src="{{ asset('images/' . $product->image) }}" class="card-img-top h-100" alt="{{ $product->name }}">
       
-
-
-        <!-- Main content area -->
-        <div class="col-md-9">
-            <div class="row">
-                @foreach ($products as $product)
-                    <div class="col-md-4 mb-3">
-                        <div class="card">
-                            <img src="{{ asset('images/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $product->name }}</h5>
-                                <a href="{{ route('products.show', ['id' => $product->id]) }}" class="btn btn-info">Start Bidding</a>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
     </div>
+    <div class="">
+      <h5 class="card-title fw-bold">{{ $product->name }}</h5>
+        <p class="card-text">{{$product->description}}</p>
+        <a href="{{ route('products.show', ['id' => $product->id]) }}" class="btn btn-info"><Details></Details></a>
+      </div>
+
+  </div>
+  @endforeach
+  
+</div>
+
+    
 </div>
 @endsection

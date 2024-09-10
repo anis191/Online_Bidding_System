@@ -117,14 +117,14 @@
                      </a>
                   </li>
                   <hr class="text-dark fw-bold px-0 mb-4">
-                  <li>
+                  <!-- <li>
                     <a href="#" class="nav-link active px-3">
                      <span>
                       <i class="fa-solid fa-magnifying-glass-dollar"></i>
                      </span>
                      Bids
                     </a>
-                 </li>
+                 </li> -->
                   <li>
                     <a href="#" class="nav-link active px-3">
                      <span>
