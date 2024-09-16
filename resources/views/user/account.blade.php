@@ -42,7 +42,11 @@
                     </tbody>
                 </table>
             @endif
+            <a href="{{ route('bidding.download') }}" class="btn btn-secondary">Download Bidding History as PDF</a>
         </div>
+
+        
+
        </div>
     </div>
 @endsection

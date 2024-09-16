@@ -22,10 +22,10 @@
         </div>
 
         <!-- Main content area -->
-        <div class="col-md-6">
+        <div class="col-md-6 p-5">
             <div class="card">
-                <div class="h-100">
-                    <img src="{{ asset('images/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}">
+                <div class="h-50 ">
+                    <img src="{{ asset('images/' . $product->image) }}" class="card-img-top h-50 w-50" alt="{{ $product->name }}">
                 </div>
                 <div class="card-body">
                     <h5 class="card-title fw-bold">{{ $product->name }}</h5>

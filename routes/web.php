@@ -90,3 +90,5 @@ Route::post('product/bid/store', [BidController::class, 'store'])->name('bid.sto
 
 
 
+
+Route::get('/account/bidding-history/download', [HomeController::class, 'downloadBiddingHistory'])->name('bidding.download');

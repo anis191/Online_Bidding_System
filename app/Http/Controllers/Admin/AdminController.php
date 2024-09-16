@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Session;
 use Auth;
+
+
+use Illuminate\Support\Facades\DB;
+
 class AdminController extends Controller
 {
 
@@ -55,5 +59,9 @@ class AdminController extends Controller
         $user->delete(); 
         return redirect()->route('admin.users')->with('success', 'User removed successfully');
     }
+    
 
+   
+
+    
 }

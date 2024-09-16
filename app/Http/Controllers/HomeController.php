@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
-
+use Barryvdh\DomPDF\Facade\Pdf;
 class HomeController extends Controller
 {
     /**
@@ -107,6 +107,18 @@ public function products()
 public function category()
 {
     return $this->belongsTo(Category::class);
+}
+
+public function downloadBiddingHistory()
+{
+    $user = auth()->user(); // Get the authenticated user
+    $biddings = $user->biddings()->with('product')->orderBy('created_at', 'desc')->get(); // Fetch bids
+
+    // Load the view with the bidding data
+    $pdf = Pdf::loadView('user.bidding_pdf', compact('user', 'biddings'));
+
+    // Download the PDF
+    return $pdf->download('bidding_history.pdf');
 }
 
 }
