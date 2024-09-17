@@ -41,7 +41,7 @@ Route::get('/products', [HomeController::class, 'indexForUser'])->name('products
 
 
 Route::get('/products/search', [ProductController::class, 'search'])->name('products.search');
-Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show')->middleware('auth');
 Route::post('/bids', [BidController::class, 'store'])->name('bids.store');
 
 Auth::routes();
