@@ -12,5 +12,7 @@ The team members are:
 Project Overview: 
 </h2>
 <p> 
-In this system a user can choose a product under different category and bid on it. The highest biddee will win the product. 
+This is a simple bidding system where users can view products under different category and bid on a product. When the bid time expires, the highest bidder of that product will be declared as winner.
+You can read the whole documentation of the project here: (https://github.com/user-attachments/files/17080472/Online_Bidding_System.pdf)
+
 </p>
